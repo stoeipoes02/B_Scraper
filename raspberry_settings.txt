@@ -1,0 +1,8 @@
+
+/etc/dhcpcd.conf changes
+
+interface [interface-name]
+static ip_address=[ip-address]/[cidr-suffix]
+static routers=[router-ip-address]
+static domain_name_servers=[dns-address]
+ 
