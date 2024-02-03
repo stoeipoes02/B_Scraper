@@ -6,8 +6,6 @@ from telegram import Update
 from telegram.constants import ParseMode
 from telegram.ext import Application, Updater, MessageHandler, CommandHandler, filters, ContextTypes
 
-import asyncio
-
 
 # Load Key
 load_dotenv(dotenv_path="creds.env")
@@ -18,23 +16,24 @@ bot = telegram.Bot(token=TOKEN)
 
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('hey i am a banana')
+    await update.message.reply_text('Hey i think im a bot')
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('I am a banana, please type something so i can respond')
+    await update.message.reply_text('Will help you in some way?')
 
 async def custom_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text('THis is a custom command')
+    await update.message.reply_text('This is a custom command')
 
 
-def handle_response(text: str) -> str:
+async def handle_response(text: str) -> str:
     processed: str = text.lower()
 
     if 'hello' in text:
         return 'hey'
-    if 'how' in text:
-        return 'Nibbas'
+    if 'hey' in text:
+        return 'hey'
     return 'i do not understand you..'
+
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message_type: str = update.message.chat.type

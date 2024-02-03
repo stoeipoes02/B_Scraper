@@ -16,8 +16,21 @@ except mariadb.Error as e:
 cur = conn.cursor()
 
 
-cur.execute(
-    "SELECT username FROM users")
+#cur.execute(
+#    "SELECT username FROM users")
 
-for username in cur:
-    print(f"first name: {username[0]}")
+#for messages in cur:
+#    print(f"first name: {username[0]}")
+
+try:
+    cur.execute("INSERT INTO messages (user_id, text, time) VALUES (1, 'hey', CURRENT_TIMESTAMP)")
+    conn.commit() # commits transaction
+    print("data inserted succesfully")
+
+except mariadb.Error as e:
+    print(f"Error: {e}")
+    conn.rollback()
+
+finally:
+    conn.close()
+
