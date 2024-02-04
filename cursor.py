@@ -23,7 +23,7 @@ cur = conn.cursor()
 #    print(f"first name: {username[0]}")
 
 try:
-    cur.execute("INSERT INTO messages (user_id, text, time) VALUES (1, 'hey', CURRENT_TIMESTAMP)")
+    cur.execute("INSERT INTO messages (user_id, text, time) VALUES (2, 'hey', CURRENT_TIMESTAMP)")
     conn.commit() # commits transaction
     print("data inserted succesfully")
 
