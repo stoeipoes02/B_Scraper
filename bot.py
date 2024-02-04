@@ -6,6 +6,7 @@ from telegram import Update
 from telegram.constants import ParseMode
 from telegram.ext import Application, Updater, MessageHandler, CommandHandler, filters, ContextTypes
 
+from cursor import insert_message
 
 # Load Key
 load_dotenv(dotenv_path="creds.env")
@@ -28,11 +29,11 @@ async def custom_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_response(text: str) -> str:
     processed: str = text.lower()
 
-    if 'hello' in text:
+    if 'hello' in processed:
         return 'hey'
-    if 'hey' in text:
+    if 'hey' in processed:
         return 'hey'
-    return 'i do not understand you..'
+    return 'I respond only to hello and hey...'
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -44,14 +45,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if message_type == 'group':
         if USERNAME in text:
             new_text: str = text.replace(USERNAME, '').strip()
-            response: str = handle_response(new_text)
+            response: str = await handle_response(new_text)
+            insert_message(update.message.chat.id, text, update.message.chat.type, update.message.chat.username, update.message.chat.first_name, update.message.chat.last_name)
+
         else:
             return
     else:
-        response: str = handle_response(text)
+        response: str = await handle_response(text)
+        insert_message(update.message.chat.id, text, update.message.chat.type, update.message.chat.username, update.message.chat.first_name, update.message.chat.last_name)
 
     print('Bot:', response)
     await update.message.reply_text(response)
+
 
 
 async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
