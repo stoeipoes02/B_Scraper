@@ -76,7 +76,9 @@ def insert_exampledatabase_users(user_id, username, first_name, last_name, email
 
     except mariadb.Error as e:
         print(f"Error inserting user: {e}")
-        conn.rollback()
+        if conn:
+            conn.rollback()
 
     finally:
-        conn.close()
+        if conn:
+            conn.close()

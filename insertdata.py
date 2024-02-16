@@ -21,4 +21,4 @@ for first, last in zip(first_name, last_name):
 
 
 for user_id, (username, email, first, last, password) in enumerate(zip(usernames, e_mail, first_name, last_name, passwords), start=1):
-    insert_exampledatabase_users(user_id, username, first, last, email, password)
+    insert_exampledatabase_users(username, first, last, email, password)
