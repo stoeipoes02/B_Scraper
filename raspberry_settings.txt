@@ -35,3 +35,11 @@ CREATE TABLE messages (
     type VARCHAR(16),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+
+
+
+CREATE TEMPORARY TABLE name_temp (name VARCHAR(50));
+
+INSERT INTO name_temp (name) VALUES
+("james"), ("robert"), ("john"), ("michael"), ("david"), ("william"), ("Richard"), ("Joseph"), ("Thomas"), ("Charles");
