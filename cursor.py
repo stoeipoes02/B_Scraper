@@ -51,34 +51,3 @@ def insert_message(user_id, text, type, username, first_name, last_name):
 
     finally:
         conn.close()
-
-
-
-# example database
-def insert_exampledatabase_users(user_id, username, first_name, last_name, email, password):
-    try:
-        conn = mariadb.connect(
-            user="exampleuser",
-            password="kick",
-            host="localhost",
-            database="PoC"
-        )
-        cur = conn.cursor()
-
-        # Check if the user already exists
-        cur.execute("SELECT user_id FROM users WHERE user_id=?", (user_id,))
-        existing_user = cur.fetchone()
-
-        if not existing_user:
-            # User does not exist, insert the new user
-            cur.execute("INSERT INTO users (user_id, username, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?, ?)", (user_id, username, first_name, last_name, email, password))
-            conn.commit()
-
-    except mariadb.Error as e:
-        print(f"Error inserting user: {e}")
-        if conn:
-            conn.rollback()
-
-    finally:
-        if conn:
-            conn.close()
