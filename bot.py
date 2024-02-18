@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+import mimetypes
 
 import telegram
 from telegram import Update
@@ -49,7 +50,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             insert_message(update.message.chat.id, text, update.message.chat.type, update.message.chat.username, update.message.chat.first_name, update.message.chat.last_name)
 
         else:
-            return
+            if update.message.document and update.message.document.file_name.endswith('.sql'):
+                response = 'Thank you for the SQL file!'
+                await update.message.reply_text(response)
+                return
     else:
         response: str = await handle_response(text)
         insert_message(update.message.chat.id, text, update.message.chat.type, update.message.chat.username, update.message.chat.first_name, update.message.chat.last_name)

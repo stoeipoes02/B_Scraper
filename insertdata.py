@@ -40,16 +40,3 @@ for i in range(len(usernames)):
         insert_exampledatabase_users(user_id, usernames[i], first_names[i], last_names[i], e_mails[i], passwords[i])
     except mariadb.Error as e:
         print(f"Error inserting user: {e}")
-
-
-# for first, last in zip(first_name, last_name):
-#     username = f"{first[0]}{last}"
-#     usernames.append(username)
-
-#     mail = f"{first}{last}@gmail.com"
-#     e_mails.append(mail)  # Update the variable name to e_mails
-
-#     password = f"{first}{last}"
-#     hashed = hashlib.md5(password.encode()).hexdigest()
-#     passwords.append(hashed)
-
